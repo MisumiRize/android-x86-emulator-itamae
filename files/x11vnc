@@ -1,0 +1,13 @@
+service x11vnc
+{
+    type = UNLISTED
+    disable = no
+    socket_type = stream
+    protocol = tcp
+    wait = no
+    user = android
+    server = /usr/bin/x11vnc
+    server_args = -inetd -o /var/log/x11vnc.log -display :1 -forever -bg -shared -enablehttpproxy -nolookup
+    port = 5900
+    flags = IPv6
+}
