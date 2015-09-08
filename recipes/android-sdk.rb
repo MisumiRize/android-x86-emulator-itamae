@@ -1,6 +1,14 @@
+execute 'add-apt-repository -y ppa:openjdk-r/ppa'
+execute 'apt-get update'
+%w(
+  openjdk-8-jdk
+  libstdc++6:i386
+).each do |pkg|
+  package pkg
+end
+
 user 'android'
-execute 'usermod -G kvm android'
-execute 'usermod -G libvirtd android'
+execute 'usermod -G kvm,libvirtd android'
 
 directory '/home/android' do
   owner 'android'
@@ -16,4 +24,14 @@ end
 execute "tar zxf /tmp/#{tgz_file} -C /home/android" do
   user 'android'
   not_if 'test -d /home/android/android-sdk-linux'
+end
+
+execute 'echo "y" | /home/android/android-sdk-linux/tools/android update sdk -u -a -t "platform-tools,android-23,sys-img-x86-android-23"' do
+  user 'android'
+end
+
+avd_name = '6.0_x86'
+execute "echo 'no' | /home/android/android-sdk-linux/tools/android create avd -n #{avd_name} -t 1 --abi x86" do
+  user 'android'
+  not_if "/home/android/android-sdk-linux/tools/android list avd | grep '#{avd_name}'"
 end
