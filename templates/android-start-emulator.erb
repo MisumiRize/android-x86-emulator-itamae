@@ -1,6 +1,8 @@
 #!/bin/bash
 
-set -eux
+set +e
+set -u
+set -x
 
 display_exists=""
 until [[ "$display_exists" =~ "X1" ]]
