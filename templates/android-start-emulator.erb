@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -eux
+
+display_exists=""
+until [[ "$display_exists" =~ "X1" ]]
+do
+    display_exists=`ls /tmp/.X11-unix | grep X1`
+    sleep 1
+done
+
+DISPLAY=:1 emulator64-x86 -avd <%= @avd_name %> -no-audio -qemu -m 2048 -enable-kvm
