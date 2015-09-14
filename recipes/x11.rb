@@ -1,8 +1,6 @@
 %w(
   xvfb
-  lxde
   x11vnc
-  supervisor
   xinetd
 ).each do |pkg|
   package pkg
@@ -15,12 +13,4 @@ end
 #service 'xinetd' do
 #  action [:start, :enable]
 #end
-
-remote_file '/etc/supervisor/conf.d/xvfb.conf' do
-  source '../files/xvfb.conf'
-end
-
-service 'supervisor' do
-  action [:start, :enable]
-end
 

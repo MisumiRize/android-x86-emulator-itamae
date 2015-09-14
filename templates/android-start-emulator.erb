@@ -11,4 +11,4 @@ do
     sleep 1
 done
 
-DISPLAY=:1 emulator64-x86 -avd <%= @avd_name %> -no-audio -qemu -m 2048 -enable-kvm
+DISPLAY=:1 emulator64-x86 -avd <%= node[:avd_name] %> -no-audio -qemu -m 2048 -enable-kvm
